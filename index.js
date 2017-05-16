@@ -25,10 +25,10 @@ ExtractTextPlugin.prototype.mergeNonInitialChunks = function(chunk, intoChunk, c
 	if(!intoChunk) {
 		checkedChunks = [];
 		chunk.chunks.forEach(function(c) {
-			if(c.isInitial()) return;
+			if(c && c.isInitial()) return;
 			this.mergeNonInitialChunks(c, chunk, checkedChunks);
 		}, this);
-	} else if(checkedChunks.indexOf(chunk) < 0) {
+	} else if(chunk && checkedChunks.indexOf(chunk) < 0) {
 		checkedChunks.push(chunk);
 		chunk.modules.slice().forEach(function(module) {
 			intoChunk.addModule(module);
